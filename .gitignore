@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+clean_data/
+features/vehicle_features.csv
+llm_data/text_enriched.csv
+models/baseline_ml.pkl
+models/deep_model.pt
+raw_dataset/validated_vehicle_data.csv

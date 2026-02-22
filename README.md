@@ -75,4 +75,3 @@ The system is divided into two main components: the ML Pipeline for quantitative
 * Member 2: Anurag Singh Tomar
 * Member 3: Aditya Prakash
 * Member 4: Aditya Mohan Samadiya
-
