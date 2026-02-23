@@ -10,7 +10,7 @@ altair==4.2.2
 streamlit-autorefresh
 python-dotenv
 
-//Requirements for ML
+# //Requirements for ML
 langchain
 faiss-cpu
 fastapi
