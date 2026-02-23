@@ -53,6 +53,16 @@ The system is divided into two main components: the ML Pipeline for quantitative
 ### Prerequisites
 * Python 3.9+
 * A free API Key from [Groq](https://console.groq.com/) or [Hugging Face](https://huggingface.co/settings/tokens)
+* Install dependencies: `pip install -r requirements.txt`
+
+### Running the Backend Server
+To start the FastAPI application, run the following command from the project root:
+
+```bash
+uvicorn main:app --reload
+```
+Once the server is running, you can access the interactive API documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
 
 ---
 
