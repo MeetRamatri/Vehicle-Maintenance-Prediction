@@ -4,6 +4,19 @@ An AI-driven analytics platform that predicts vehicle maintenance needs using hi
 
 ---
 
+## 💡 What This Project Does
+
+This project is a **Vehicle Maintenance Prediction System** that helps fleet managers predict when vehicles need maintenance before breakdowns occur. It does this by:
+
+1. **Analyzing vehicle data** (mileage, engine hours, fault codes, tire/brake/battery condition) using Machine Learning models (Random Forest, XGBoost) to calculate a **risk score** for each vehicle.
+2. **Providing an AI chatbot** powered by LLMs (Groq/Llama 3) that answers maintenance questions, reasons about vehicle health, and generates structured service recommendations.
+3. **Retrieving maintenance guidelines** via a RAG (Retrieval-Augmented Generation) pipeline backed by FAISS vector search, so recommendations are grounded in real servicing best practices.
+4. **Presenting everything in a web dashboard** (Streamlit) where users can upload fleet CSV data, visualize risk distributions, and export PDF maintenance reports.
+
+In short: upload your fleet data → get risk predictions → ask the AI chatbot for advice → download a maintenance report.
+
+---
+
 ## 📌 Project Overview
 This project addresses the challenges of proactive fleet management. By combining traditional **Machine Learning** for risk prediction with **Agentic AI (LLMs)** for reasoning, the system helps fleet managers move from reactive repairs to predictive maintenance, reducing downtime and operational costs.
 
@@ -48,12 +61,59 @@ The system is divided into two main components: the ML Pipeline for quantitative
 
 ---
 
+## 📂 Project Structure
+
+```
+Vehicle-Maintenance-Prediction/
+├── app.py                        # Streamlit web dashboard (main UI)
+├── main.py                       # FastAPI backend server (REST API)
+├── MaintenancePridictiveModel.ipynb  # Jupyter notebook for ML model training
+├── requirements.txt              # Full dependency list
+├── requirements-ml.txt           # ML/LLM-only dependencies (for local/GPU use)
+├── chatbot/
+│   ├── vehicle_ai.py             # Conversational AI agent with memory
+│   └── memory.py                 # Conversation memory management
+├── rag_pipeline/
+│   ├── retriever.py              # RAG retriever using FAISS vector search
+│   ├── chunking.py               # Document chunking for vector storage
+│   └── index.faiss               # Pre-built FAISS index
+├── features/
+│   └── vehicle_features.csv      # Engineered feature dataset
+├── evaluation/
+│   ├── llm_evaluation.py         # LLM output evaluation scripts
+│   └── faithfulness_report.md    # Faithfulness evaluation report
+├── fine_tuning/
+│   ├── lora_setup.py             # LoRA adapter configuration
+│   └── train_lora.py             # LoRA fine-tuning script
+├── llm_data/
+│   ├── enrich_text.py            # Text enrichment for training data
+│   ├── generate_instructions.py  # Instruction dataset generation
+│   ├── generate_text.py          # Text generation utilities
+│   ├── instruction_dataset.jsonl # Generated instruction dataset
+│   └── text_enriched.csv         # Enriched text data
+└── static/                       # UI assets (images, icons)
+```
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 * Python 3.9+
 * A free API Key from [Groq](https://console.groq.com/) or [Hugging Face](https://huggingface.co/settings/tokens)
-* Install dependencies: `pip install -r requirements.txt`
+* Install dependencies:
+  ```bash
+  pip install -r requirements.txt
+  ```
+  For ML/LLM-heavy workloads on a local GPU server, use `requirements-ml.txt` instead.
+
+### Running the Streamlit Dashboard
+To launch the web dashboard, run:
+
+```bash
+streamlit run app.py
+```
+The dashboard opens at [http://localhost:8501](http://localhost:8501) where you can upload fleet CSV data, view risk visualizations, chat with the AI assistant, and export reports.
 
 ### Running the Backend Server
 To start the FastAPI application, run the following command from the project root:
@@ -68,14 +128,14 @@ Once the server is running, you can access the interactive API documentation at 
 
 ## Milestones
 ### Milestone 1: ML-Based Prediction
-* [ ] Data preprocessing and feature engineering.
-* [ ] Implementation of Classification/Regression models.
+* [x] Data preprocessing and feature engineering.
+* [x] Implementation of Classification/Regression models.
 * [ ] Feature importance analysis (SHAP/LIME).
-* [ ] Basic UI for CSV uploads and risk visualization.
+* [x] Basic UI for CSV uploads and risk visualization.
 ### Milestone 2: Agentic Assistant
-* [ ] Integration of Open-source LLM via LangGraph.
-* [ ] Implementation of State Management for the AI Agent.
-* [ ] Automated generation of structured fleet reports.
+* [x] Integration of Open-source LLM via LangGraph.
+* [x] Implementation of State Management for the AI Agent.
+* [x] Automated generation of structured fleet reports.
 * [ ] Extension: PDF Export of maintenance reports.
 
 ---
