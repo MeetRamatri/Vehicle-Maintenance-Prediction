@@ -1,0 +1,10 @@
+# Full ML/LLM dependencies (for local use / GPU server only)
+# NOT for Streamlit Cloud — these packages are too large
+langchain
+faiss-cpu
+fastapi
+uvicorn
+torch
+transformers
+sentence-transformers
+kagglehub

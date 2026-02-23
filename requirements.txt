@@ -4,13 +4,7 @@ scikit-learn
 xgboost
 matplotlib
 seaborn
-langchain
-faiss-cpu
-fastapi
-uvicorn
+plotly
 streamlit
+streamlit-autorefresh
 python-dotenv
-kagglehub
-torch
-transformers
-sentence-transformers
