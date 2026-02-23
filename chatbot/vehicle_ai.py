@@ -42,18 +42,12 @@ class VehicleAI:
         "Keep responses concise but informative."
     )
 
-    def __init__(self):
+    def __init__(self, retriever=None):
         self.memory = ConversationMemory(max_turns=10)
 
-        # Initialize RAG retriever
-        if _rag_available:
-            try:
-                self.retriever = RAGRetriever()
-            except Exception as e:
-                print(f"Warning: RAG retriever init failed: {e}")
-                self.retriever = None
-        else:
-            self.retriever = None
+        # Use provided retriever or create one lazily
+        self._retriever = retriever
+        self._retriever_initialized = retriever is not None
 
         # Determine LLM backend
         self.groq_key = os.environ.get("GROQ_API_KEY", "")
@@ -69,6 +63,21 @@ class VehicleAI:
             self.backend = "rule-based"
             print("VehicleAI: No API keys found. Using rule-based fallback. "
                   "Set GROQ_API_KEY or HF_TOKEN for LLM-powered responses.")
+
+    @property
+    def retriever(self):
+        """Lazy-initialize RAG retriever on first access."""
+        if not self._retriever_initialized:
+            self._retriever_initialized = True
+            if _rag_available:
+                try:
+                    self._retriever = RAGRetriever()
+                except Exception as e:
+                    print(f"Warning: RAG retriever init failed: {e}")
+                    self._retriever = None
+            else:
+                self._retriever = None
+        return self._retriever
 
     def ask(self, question: str) -> str:
         """Process a user question and return a response."""

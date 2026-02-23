@@ -21,14 +21,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Initialize AI & RAG components
-try:
-    vehicle_ai = VehicleAI()
-    rag_retriever = RAGRetriever()
-except Exception as e:
-    print(f"Warning: Failed to initialize AI components: {e}")
-    vehicle_ai = None
-    rag_retriever = None
+# Initialize AI & RAG components (lazy - heavy loading deferred to first request)
+vehicle_ai = VehicleAI()
+rag_retriever = None  # Will be shared with VehicleAI on first RAG request
 
 # Load ML model and feature columns
 MODEL_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
@@ -90,9 +85,6 @@ def read_health():
 @app.post("/api/chat")
 def chat_endpoint(request: ChatRequest):
     """Endpoint for conversing with the Vehicle AI Agent."""
-    if not vehicle_ai:
-        raise HTTPException(status_code=503, detail="Vehicle AI is not initialized")
-    
     try:
         response = vehicle_ai.ask(request.query)
         return {"response": response, "memory_length": len(vehicle_ai.memory)}
@@ -102,12 +94,18 @@ def chat_endpoint(request: ChatRequest):
 @app.post("/api/retrieve")
 def retrieve_endpoint(request: RetrieveRequest):
     """Endpoint for retrieving maintenance guidelines via RAG."""
-    if not rag_retriever:
-        raise HTTPException(status_code=503, detail="RAG Retriever is not initialized")
-        
+    global rag_retriever
+    # Lazy-init: share the retriever from VehicleAI or create one
+    if rag_retriever is None:
+        if vehicle_ai and vehicle_ai.retriever:
+            rag_retriever = vehicle_ai.retriever
+        else:
+            try:
+                rag_retriever = RAGRetriever()
+            except Exception as e:
+                raise HTTPException(status_code=503, detail=f"RAG Retriever failed to init: {e}")
+
     try:
-        # Note: retriever.retrieve might print instead of returning cleanly,
-        # but based on the code it returns a list of strings
         chunks = rag_retriever.retrieve(request.query, k=request.top_k)
         return {"query": request.query, "retrieved_chunks": chunks}
     except Exception as e:
