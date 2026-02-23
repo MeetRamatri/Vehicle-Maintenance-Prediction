@@ -82,6 +82,6 @@ Once the server is running, you can access the interactive API documentation at 
 
 ## Team Members
 * Member 1: Meet Ramatri 
-* Member 2: Anurag Singh Tomar
-* Member 3: Aditya Prakash
-* Member 4: Aditya Mohan Samadiya
+* Member 2: Aaditya Mohan Samadiya(team leader)
+* Member 3: Anurag Singh Tomar
+* Member 4: Aditya prakash
