@@ -654,7 +654,7 @@ def main():
             car_img_path = pathlib.Path("static/supercar.png")
             if car_img_path.exists():
                 b64 = base64.b64encode(car_img_path.read_bytes()).decode()
-                st.markdown("""
+                st.markdown(f"""
                     <div style='
                         background: radial-gradient(ellipse at center, rgba(180,180,200,0.08) 0%, rgba(0,0,0,0) 70%);
                         border-radius: 20px;
@@ -723,10 +723,11 @@ def main():
             dots_green  = "".join([f"<div class='vdd-dot' style='background:#00ffcc; opacity:{0.3+0.07*i};'></div>" for i in range(12)])
             dots_yellow = "".join([f"<div class='vdd-dot' style='background:#ffcc00; opacity:{0.3+0.07*i};'></div>" for i in range(9)])
             dots_pink   = "".join([f"<div class='vdd-dot' style='background:#ff3366; opacity:{0.3+0.07*i};'></div>" for i in range(4)])
-            st.markdown("""
+            mileage_k = v['mileage'] // 1000
+            st.markdown(f"""
                 <div class='vdd-stat-box' style='margin-top:10px;'>
                     <div class='vdd-stat-label'>Mileage · km</div>
-                    <div class='vdd-stat-value'>{v['mileage']//1000:.0f}k</div>
+                    <div class='vdd-stat-value'>{mileage_k}k</div>
                     <div style='font-size:0.75em; color:#4a5568; margin-top:6px;'>
                         🟢 Drive 41% &nbsp; 🟡 Eco 53% &nbsp; 🔴 Idle 6%
                     </div>
@@ -764,11 +765,12 @@ def main():
             # System warnings panel
             error_count = 3 if risk >= 75 else 1 if risk >= 50 else 0
             warn_color = "#FF3366" if error_count >= 3 else "#FFCC00" if error_count == 1 else "#00FFCC"
-            st.markdown("""
+            error_msg = "errors found" if error_count > 0 else "All systems OK"
+            st.markdown(f"""
                 <div class='vdd-stat-box'>
                     <div class='vdd-stat-label'>System Warnings</div>
                     <div class='warn-number' style='color:{warn_color}; text-shadow: 0 0 30px {warn_color}66;'>{error_count}</div>
-                    <div style='font-size:0.82em; color:#a0aec0; margin-top:4px;'>{"errors found" if error_count > 0 else "All systems OK"}</div>
+                    <div style='font-size:0.82em; color:#a0aec0; margin-top:4px;'>{error_msg}</div>
                 </div>
             """, unsafe_allow_html=True)
 
@@ -845,21 +847,24 @@ def main():
 
             aging_impact = int(v['age'] / 12 * 40)
             mileage_impact = int(v['mileage'] / 500000 * 35)
+            risk_level = "High" if risk >= 75 else "Medium" if risk >= 50 else "Low"
+            days_range = "30–60" if risk >= 75 else "60–90" if risk >= 50 else "90+"
+            downtime_cost = int(risk * 48)
 
             ai_text = f"""
                 This vehicle has a <b style='color:{risk_color};'>Risk Score of {risk:.1f}/100</b>, placing it in the
-                <b>{"High" if risk >= 75 else "Medium" if risk >= 50 else "Low"} Risk</b> category.<br><br>
+                <b>{risk_level} Risk</b> category.<br><br>
 
                 The primary risk contributors are <b>engine aging</b> ({aging_impact}% impact) and <b>high mileage</b>
                 ({mileage_impact}% impact), with secondary contributions from thermal stress and lubrication degradation.
                 These factors collectively indicate an elevated probability of component failure within the next
-                <b>{"30–60" if risk >= 75 else "60–90" if risk >= 50 else "90+"} days</b> without intervention.<br><br>
+                <b>{days_range} days</b> without intervention.<br><br>
 
                 <b>AI Recommendation:</b> <span style='color:{rec_color};'>{recommendation}</span>. Prioritize oil change
-                and brake inspection. Estimated downtime cost if delayed: <b>${int(risk * 48):,}</b>.
+                and brake inspection. Estimated downtime cost if delayed: <b>${downtime_cost:,}</b>.
             """
 
-            st.markdown("""
+            st.markdown(f"""
                 <div class='ai-panel'>
                     <div style='display:flex; align-items:center; gap:8px; margin-bottom:14px;'>
                         <span style='font-size:1.4rem;'>🤖</span>
