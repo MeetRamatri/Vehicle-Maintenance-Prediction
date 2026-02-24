@@ -24,3 +24,8 @@ kagglehub
 # API
 fastapi
 uvicorn
+httpx
+
+# Testing
+pytest
+pytest-cov
