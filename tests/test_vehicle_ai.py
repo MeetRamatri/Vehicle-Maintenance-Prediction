@@ -1,7 +1,6 @@
 """
 Unit tests for the VehicleAI chatbot module.
 """
-import pytest
 import os
 from unittest.mock import Mock, patch, MagicMock
 
