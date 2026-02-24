@@ -649,7 +649,8 @@ def main():
 
         with row1_center:
             # Display real car image
-            import base64, pathlib
+            import base64
+            import pathlib
             car_img_path = pathlib.Path("static/supercar.png")
             if car_img_path.exists():
                 b64 = base64.b64encode(car_img_path.read_bytes()).decode()
