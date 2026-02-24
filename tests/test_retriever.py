@@ -178,7 +178,7 @@ class TestRAGRetrieverEdgeCases:
         retriever.index = mock_index
         
         try:
-            import faiss
+        
             # Test retrieve - faiss is available so normalize_L2 will work
             results = retriever.retrieve("test", k=5)
             # Should only return valid chunks
