@@ -416,7 +416,7 @@ def get_trend_data(refresh_count=0):
 
 # --- COMPONENT HELPERS ---
 def render_metric(label, value, color_class="glow-text", icon=""):
-    st.markdown(f"""
+    st.markdown("""
         <div class="glass-panel" style="text-align: center;">
             <div class="metric-label">{icon} {label}</div>
             <div class="metric-value {color_class}">{value}</div>
@@ -601,7 +601,7 @@ def main():
         # ── TOP HEADER ──────────────────────────────────────────
         h_left, h_right = st.columns([3, 1])
         with h_left:
-            st.markdown(f"""
+            st.markdown("""
                 <p class='vdd-header'>{v['model']}</p>
                 <p class='vdd-id'>ID: {v['id']} &nbsp;·&nbsp; {v['fuel']} &nbsp;·&nbsp; Region: {v['region']}</p>
             """, unsafe_allow_html=True)
@@ -623,7 +623,7 @@ def main():
         row1_left, row1_center, row1_right = st.columns([1.2, 2.5, 1])
 
         with row1_left:
-            st.markdown(f"""
+            st.markdown("""
                 <div class='vdd-spec-card'>
                     <span class='vdd-spec-icon'>⚙️</span>
                     <div>
@@ -654,7 +654,7 @@ def main():
             car_img_path = pathlib.Path("static/supercar.png")
             if car_img_path.exists():
                 b64 = base64.b64encode(car_img_path.read_bytes()).decode()
-                st.markdown(f"""
+                st.markdown("""
                     <div style='
                         background: radial-gradient(ellipse at center, rgba(180,180,200,0.08) 0%, rgba(0,0,0,0) 70%);
                         border-radius: 20px;
@@ -723,7 +723,7 @@ def main():
             dots_green  = "".join([f"<div class='vdd-dot' style='background:#00ffcc; opacity:{0.3+0.07*i};'></div>" for i in range(12)])
             dots_yellow = "".join([f"<div class='vdd-dot' style='background:#ffcc00; opacity:{0.3+0.07*i};'></div>" for i in range(9)])
             dots_pink   = "".join([f"<div class='vdd-dot' style='background:#ff3366; opacity:{0.3+0.07*i};'></div>" for i in range(4)])
-            st.markdown(f"""
+            st.markdown("""
                 <div class='vdd-stat-box' style='margin-top:10px;'>
                     <div class='vdd-stat-label'>Mileage · km</div>
                     <div class='vdd-stat-value'>{v['mileage']//1000:.0f}k</div>
@@ -747,7 +747,7 @@ def main():
                 ("⚡", "Battery Health",    "87%",      87,  "#00ffcc", "Good"),
             ]
             for icon, label, value_text, bar_val, bar_color, status in forecasts:
-                st.markdown(f"""
+                st.markdown("""
                     <div style='margin-bottom:14px;'>
                         <div style='display:flex; justify-content:space-between; align-items:center;'>
                             <span style='font-size:0.85em; color:#a0aec0;'>{icon} {label}</span>
@@ -764,7 +764,7 @@ def main():
             # System warnings panel
             error_count = 3 if risk >= 75 else 1 if risk >= 50 else 0
             warn_color = "#FF3366" if error_count >= 3 else "#FFCC00" if error_count == 1 else "#00FFCC"
-            st.markdown(f"""
+            st.markdown("""
                 <div class='vdd-stat-box'>
                     <div class='vdd-stat-label'>System Warnings</div>
                     <div class='warn-number' style='color:{warn_color}; text-shadow: 0 0 30px {warn_color}66;'>{error_count}</div>
@@ -826,7 +826,7 @@ def main():
                 ("💨 Exhaust cycle",  5, "#888888"),
             ]
             for name, val, color in causes:
-                st.markdown(f"""
+                st.markdown("""
                     <div style='display:flex; justify-content:space-between; align-items:center; margin-top:6px;'>
                         <span style='color:#a0aec0; font-size:0.8em;'>{name}</span>
                         <span style='color:white; font-size:0.8em; font-weight:600;'>{val}%</span>
@@ -859,7 +859,7 @@ def main():
                 and brake inspection. Estimated downtime cost if delayed: <b>${int(risk * 48):,}</b>.
             """
 
-            st.markdown(f"""
+            st.markdown("""
                 <div class='ai-panel'>
                     <div style='display:flex; align-items:center; gap:8px; margin-bottom:14px;'>
                         <span style='font-size:1.4rem;'>🤖</span>
@@ -981,7 +981,7 @@ def main():
                 ]
                 for col, fc_class, icon, title, desc in cards:
                     with col:
-                        st.markdown(f"""
+                        st.markdown("""
                             <div class='feature-card {fc_class}'>
                                 <span class='feature-card-icon'>{icon}</span>
                                 <div class='feature-card-title'>{title}</div>
@@ -1004,14 +1004,14 @@ def main():
                 st.markdown("<div class='chat-area'>", unsafe_allow_html=True)
                 for msg in st.session_state.messages:
                     if msg["role"] == "user":
-                        st.markdown(f"""
+                        st.markdown("""
                             <div style='text-align:right;'>
                                 <div class='user-label'>You</div>
                                 <div class='chat-bubble-user'>{msg['content']}</div>
                             </div>
                         """, unsafe_allow_html=True)
                     else:
-                        st.markdown(f"""
+                        st.markdown("""
                             <div>
                                 <div class='bot-label'>🤖 Fleet AI</div>
                                 <div class='chat-bubble-bot'>{msg['content']}</div>
