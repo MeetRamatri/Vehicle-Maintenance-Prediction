@@ -1,11 +1,9 @@
 """
 Unit tests for the RAG Chunking module.
 """
-import pytest
 import os
 import json
 import csv
-import tempfile
 from rag_pipeline.chunking import (
     load_instruction_chunks,
     load_enriched_chunks,

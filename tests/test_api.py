@@ -2,7 +2,6 @@
 Unit tests for the FastAPI API endpoints.
 """
 import pytest
-from unittest.mock import Mock, patch, MagicMock
 import sys
 import os
 

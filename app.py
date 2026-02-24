@@ -607,7 +607,7 @@ def main():
             """, unsafe_allow_html=True)
 
         with h_right:
-            st.markdown(f"""
+            st.markdown("""
                 <div style='text-align:right; padding-top:8px;'>
                     <div class='vdd-nav'>
                         <a href='#' class='active'>Overview</a>
@@ -649,7 +649,8 @@ def main():
 
         with row1_center:
             # Display real car image
-            import base64, pathlib
+            import base64
+            import pathlib
             car_img_path = pathlib.Path("static/supercar.png")
             if car_img_path.exists():
                 b64 = base64.b64encode(car_img_path.read_bytes()).decode()
@@ -671,7 +672,7 @@ def main():
                     </div>
                 """, unsafe_allow_html=True)
             else:
-                st.markdown(f"<div style='text-align:center; font-size:6rem; padding:30px 0;'>🚗</div>", unsafe_allow_html=True)
+                st.markdown("<div style='text-align:center; font-size:6rem; padding:30px 0;'>🚗</div>", unsafe_allow_html=True)
 
         with row1_right:
             st.markdown("""
