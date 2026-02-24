@@ -5,8 +5,6 @@ for vehicle maintenance questions. Supports Groq and HuggingFace backends,
 with a smart rule-based fallback when no API key is configured.
 """
 import os
-import json
-from typing import Optional
 
 from chatbot.memory import ConversationMemory
 

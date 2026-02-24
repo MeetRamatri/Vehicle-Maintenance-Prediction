@@ -20,7 +20,7 @@ def enrich_text(df_path='features/vehicle_features.csv'):
         if row['Need_Maintenance'] == 1:
             return f"Immediate maintenance required for {row['Vehicle_Model']} due to {row['Reported_Issues']} reported issues and high mileage intensity."
         else:
-            return f"Vehicle is in stable condition. Next routine check recommended after 5,000 km."
+            return "Vehicle is in stable condition. Next routine check recommended after 5,000 km."
 
     df['vehicle_summary'] = df.apply(generate_summary, axis=1)
     df['maintenance_recommendation'] = df.apply(generate_recommendation, axis=1)

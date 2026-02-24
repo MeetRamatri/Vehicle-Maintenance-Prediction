@@ -2,7 +2,6 @@
 Conversation Memory Module
 Maintains chat history with a sliding window to provide context for the AI chatbot.
 """
-from typing import Optional
 
 
 class ConversationMemory:
