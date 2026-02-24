@@ -1,0 +1,25 @@
+# Test dependencies for Vehicle Maintenance Prediction
+# Install with: pip install -r requirements-test.txt
+
+# Testing framework
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# HTTP client for API tests
+httpx>=0.24.0
+
+# Core dependencies needed for tests
+pandas
+numpy
+scikit-learn
+xgboost
+joblib
+
+# API framework
+fastapi
+uvicorn
+pydantic
+
+# RAG pipeline dependencies
+sentence-transformers
+faiss-cpu
