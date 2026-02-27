@@ -7,8 +7,7 @@ def create_instruction_dataset(df_path='llm_data/text_enriched.csv'):
     Phase 7: Instruction Dataset Generation
     Generates Instruction -> Input -> Output pairs for fine-tuning.
     """
-    if not os.path.exists(df_path):
-        return
+    if not os.path.exists(df_path): return
     df = pd.read_csv(df_path)
     
     dataset = []

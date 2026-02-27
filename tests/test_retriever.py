@@ -2,8 +2,9 @@
 Unit tests for the RAG Retriever module.
 """
 import pytest
+import os
 import numpy as np
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, MagicMock
 
 
 class TestRAGRetrieverInit:
@@ -75,7 +76,7 @@ class TestRAGRetrieverRetrieve:
         
         # Import faiss to get normalize_L2
         try:
-            import faiss  # noqa: F401
+            import faiss
             # Test retrieve - faiss is available so normalize_L2 will work
             results = retriever.retrieve("oil change", k=3)
             assert len(results) == 3
@@ -100,8 +101,8 @@ class TestRAGRetrieverIntegration:
     def retriever_if_available(self):
         """Create a retriever if dependencies are available."""
         try:
-            import faiss  # noqa: F401
-            from sentence_transformers import SentenceTransformer  # noqa: F401
+            import faiss
+            from sentence_transformers import SentenceTransformer
             from rag_pipeline.retriever import RAGRetriever
             return RAGRetriever()
         except ImportError:
