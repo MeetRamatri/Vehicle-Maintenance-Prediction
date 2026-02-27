@@ -159,11 +159,6 @@ class TestRAGRetrieverEdgeCases:
 
     def test_retrieve_large_k(self):
         """Test retrieve when k is larger than number of chunks."""
-        try:
-            import faiss as _faiss  # noqa: F401 - check availability
-        except ImportError:
-            pytest.skip("faiss not installed")
-            
         from rag_pipeline.retriever import RAGRetriever
         
         retriever = RAGRetriever.__new__(RAGRetriever)
@@ -181,10 +176,14 @@ class TestRAGRetrieverEdgeCases:
         )
         retriever.index = mock_index
         
-        # Test retrieve - faiss is available so normalize_L2 will work
-        results = retriever.retrieve("test", k=5)
-        # Should only return valid chunks
-        assert len(results) == 2
+        try:
+        
+            # Test retrieve - faiss is available so normalize_L2 will work
+            results = retriever.retrieve("test", k=5)
+            # Should only return valid chunks
+            assert len(results) == 2
+        except ImportError:
+            pytest.skip("faiss not installed")
 
     def test_retrieve_special_characters_in_query(self):
         """Test retrieve handles special characters in query."""
