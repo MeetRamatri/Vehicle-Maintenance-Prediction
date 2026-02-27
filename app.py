@@ -416,7 +416,7 @@ def get_trend_data(refresh_count=0):
 
 # --- COMPONENT HELPERS ---
 def render_metric(label, value, color_class="glow-text", icon=""):
-    st.markdown("""
+    st.markdown(f"""
         <div class="glass-panel" style="text-align: center;">
             <div class="metric-label">{icon} {label}</div>
             <div class="metric-value {color_class}">{value}</div>
