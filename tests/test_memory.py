@@ -1,6 +1,7 @@
 """
 Unit tests for the ConversationMemory module.
 """
+import pytest
 from chatbot.memory import ConversationMemory
 
 
