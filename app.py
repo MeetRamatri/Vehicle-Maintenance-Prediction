@@ -723,7 +723,7 @@ def main():
             dots_green  = "".join([f"<div class='vdd-dot' style='background:#00ffcc; opacity:{0.3+0.07*i};'></div>" for i in range(12)])
             dots_yellow = "".join([f"<div class='vdd-dot' style='background:#ffcc00; opacity:{0.3+0.07*i};'></div>" for i in range(9)])
             dots_pink   = "".join([f"<div class='vdd-dot' style='background:#ff3366; opacity:{0.3+0.07*i};'></div>" for i in range(4)])
-            st.markdown("""
+            st.markdown(f"""
                 <div class='vdd-stat-box' style='margin-top:10px;'>
                     <div class='vdd-stat-label'>Mileage · km</div>
                     <div class='vdd-stat-value'>{v['mileage']//1000:.0f}k</div>
